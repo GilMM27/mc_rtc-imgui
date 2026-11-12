@@ -1,5 +1,4 @@
 #include "Plot.h"
-#include <algorithm>
 
 #include "implot_internal.h"
 
@@ -71,17 +70,6 @@ void Plot::plot_point(uint64_t did,
   plot.color = color;
   plot.style = style;
   plot.side = side;
-  // Rolling closest-pair speed plot installed by the superbuild.
-  if(title_ == "SSM+PFL closest robot approach speed (m/s)")
-  {
-    if(!plot.points.empty() && x < plot.points.back().x)
-      plot.points.clear(); // Simulation time restarted.
-    const double start = std::max(0.0, x - 30.0);
-    const auto first = std::lower_bound(plot.points.begin(), plot.points.end(), start,
-                                        [](const Point & point, double time) { return point.x < time; });
-    plot.points.erase(plot.points.begin(), first);
-    x_limits_ = {{start, std::max(30.0, x)}};
-  }
   plot.points.push_back({x, y});
   side == Side::Left ? y_plots_++ : y2_plots_++;
 }
