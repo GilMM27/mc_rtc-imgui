@@ -181,7 +181,7 @@ void Plot::do_plot()
     if(p.style == Style::Point)
     {
       ImPlot::SetNextLineStyle({0, 0, 0, 0});
-      ImPlot::PlotLine(p.label.c_str(), &p.points[0].x, &p.points[0].y, p.points.size(), 0, sizeof(Point));
+      ImPlot::PlotLine(p.label.c_str(), &p.points[0].x, &p.points[0].y, p.points.size(), 0, 0, sizeof(Point));
       if(ImPlot::BeginItem(p.label.c_str()))
       {
         ImPlot::GetCurrentItem()->Color = toImU32(p.color);
@@ -196,7 +196,7 @@ void Plot::do_plot()
     {
       // FIXME We can not plot dashed and dotted lines yet
       ImPlot::SetNextLineStyle(toImVec4(p.color));
-      ImPlot::PlotLine(p.label.c_str(), &p.points[0].x, &p.points[0].y, p.points.size(), 0, sizeof(Point));
+      ImPlot::PlotLine(p.label.c_str(), &p.points[0].x, &p.points[0].y, p.points.size(), 0, 0, sizeof(Point));
     }
   }
   {
